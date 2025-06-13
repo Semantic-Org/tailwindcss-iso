@@ -159,7 +159,7 @@ const classes = await getTailwindClasses({
 
 **Extension Parameter:**
 
-The `extension` parameter provides a hint to the Tailwind scanner about how to parse the content. It defaults to `'jsx'`. You can pass different file extensions to potentially optimize class extraction for your specific content type.
+The `extension` parameter provides a hint to the Tailwind scanner about how to parse the content. It defaults to `'html'`. You can pass different file extensions to potentially optimize class extraction for your specific content type.
 
 ## License
 
