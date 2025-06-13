@@ -161,6 +161,21 @@ const classes = await getTailwindClasses({
 
 The `extension` parameter provides a hint to the Tailwind scanner about how to parse the content. It defaults to `'html'`. You can pass different file extensions to potentially optimize class extraction for your specific content type.
 
+## Common Issues
+
+If you are using Vite or a Vite based tool like Astro you will need to add this package to the exclude list for `optimizeDeps` for the wasm file to be accessed properly
+
+More information in the [Vite Docs](https://vite.dev/config/dep-optimization-options#optimizedeps-exclude)
+
+```
+export default defineConfig({
+  optimizeDeps: 
+    force: true, // might not always be necessary
+    exclude: ['tailwindcss-iso'],
+  },
+});
+```
+
 ## License
 
 [ISC](LICENSE)
