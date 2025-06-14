@@ -114,8 +114,6 @@ console.log(classes);
 
 #### Content Type Detection
 
-The scanner automatically detects classes based on the file extension hint. By default, it uses `'jsx'` which handles mixed HTML/JS content well:
-
 ```javascript
 // Mixed HTML and JavaScript content (default: 'jsx')
 const mixedContent = `
