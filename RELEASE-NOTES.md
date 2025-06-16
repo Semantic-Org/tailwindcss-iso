@@ -1,3 +1,6 @@
+# Version 1.0.3
+- Adjusted wasm import in browser so that it can be detectable by esbuild as an asset.
+
 # Version 1.0.2
 Added top level fields in `package.json` for CDNs. This may improve resolution in some cases.
 
