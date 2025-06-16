@@ -1,3 +1,6 @@
+// Import WASM file as URL to ensure bundlers copy it and get the actual hashed path
+import wasmAsset from './oxide/tailwindcss_oxide_bg.wasm?url';
+
 /**
  * Gets candidate classes from content
  */
@@ -17,7 +20,8 @@ export async function getTailwindClasses({
   try {
     // Load WASM-based scanner for browser environment
     const wasmModule = await import('./oxide/tailwindcss_oxide.js');
-    await wasmModule.default();
+    // Pass the actual hashed URL to override the hardcoded filename
+    await wasmModule.default(wasmAsset);
     Scanner = wasmModule.WasmScanner;
     ChangedContent = wasmModule.WasmChangedContent;
   }

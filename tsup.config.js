@@ -16,6 +16,7 @@ export default defineConfig({
   // Handle CSS files as text strings instead of processed CSS
   loader: {
     '.css': 'text',
+    '.wasm': 'file',
   },
   // Bundle tailwindcss (override peerDependency exclusion) to include CSS files
   noExternal: ['tailwindcss'],
@@ -31,5 +32,5 @@ export default defineConfig({
   dts: false,
   // **Crucially**, this copies the WASM assets to the output directory,
   // so the dynamic import within the bundled code can find them.
-  publicDir: 'src/browser/oxide',
+  // publicDir: 'src/browser/oxide', // Temporarily disabled for testing
 });
