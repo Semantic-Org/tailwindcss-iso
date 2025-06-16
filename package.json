@@ -13,7 +13,11 @@
   "exports": {
     ".": {
       "types": "./types/index.d.ts",
-      "browser": "./dist/browser.js",
+      "cdn": "./dist/browser.js",
+      "unpkg": "./dist/browser.js",
+      "jsdelivr": "./dist/browser.js",
+      "importmap": "./dist/browser.js",
+      "browser": "./src/browser/index.js",
       "node": "./src/server/index.js",
       "default": "./src/server/index.js"
     },

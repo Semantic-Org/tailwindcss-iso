@@ -159,6 +159,32 @@ const classes = await getTailwindClasses({
 
 The `extension` parameter provides a hint to the Tailwind scanner about how to parse the content. It defaults to `'html'`. You can pass different file extensions to potentially optimize class extraction for your specific content type.
 
+## Bundled Versions
+
+- **CDN / Direct Usage**: Use `cdn` or `importmap` condition which bundles deps
+- **Clientside**: Use `/browser` condition with a build tool like Vite for a clientside build.
+- **Serverside**: Use `/server` or `node` condition for a serverside build.
+
+## CDN / Import Map Usage
+
+The `/cdn` and `/importmap` export condition can be used to get a version with dependencies bundled. This is useful in particular because `css` imports are not supported by esm in the browser and only with build tools like Vite. If you are not using a build tool you will need to use this endpoint.
+
+```html
+<script type="module">
+  // Automatically gets bundled version from CDNs like jsdelivr, unpkg
+  import { generateTailwindCSS } from 'https://cdn.jsdelivr.net/npm/tailwindcss-iso';
+
+  const css = await generateTailwindCSS({
+    content: '<div class="bg-blue-500 text-white p-4">Hello World</div>'
+  });
+
+  // Inject into page
+  const style = document.createElement('style');
+  style.textContent = css;
+  document.head.appendChild(style);
+</script>
+```
+
 ## Common Issues
 
 If you are using Vite or a Vite based tool like Astro you will need to add this package to the exclude list for `optimizeDeps` for the wasm file to be accessed properly
