@@ -1,3 +1,6 @@
+# Version 1.0.2
+Added top level fields in `package.json` for CDNs. This may improve resolution in some cases.
+
 # Version 1.0.1
 
 Added new conditional exports for `cdn` that bundle dependencies. This is to avoid issues from CDN that do not support raw imports when parsing imported tailwind css
