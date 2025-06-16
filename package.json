@@ -13,7 +13,7 @@
   "exports": {
     ".": {
       "types": "./types/index.d.ts",
-      "browser": "./src/browser/index.js",
+      "browser": "./dist/browser.js",
       "node": "./src/server/index.js",
       "default": "./src/server/index.js"
     },
@@ -27,12 +27,15 @@
     }
   },
   "scripts": {
+    "build": "tsup",
+    "prepublishOnly": "npm run build",
     "test": "vitest --config test/configs/vitest.all.config.js",
     "test:server": "vitest --config test/configs/vitest.config.js",
     "test:browser": "vitest --config test/configs/vitest.browser.config.js"
   },
   "files": [
     "src",
+    "dist",
     "types",
     "LICENSE"
   ],
@@ -44,8 +47,10 @@
     "@tailwindcss/oxide": "^4.1.9"
   },
   "devDependencies": {
-    "vitest": "^3.0.8",
     "@vitest/browser": "^3.0.8",
-    "playwright": "^1.40.0"
+    "playwright": "^1.40.0",
+    "tsup": "^8.5.0",
+    "typescript": "^5.8.3",
+    "vitest": "^3.0.8"
   }
 }
