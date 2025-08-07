@@ -38,7 +38,87 @@ const tailwindCSS = await generateTailwindCSS({ content, css });
 
 This is useful for testing, benchmarking, or when bundler environment detection isn't working as expected.
 
-## Examples
+## 📚 API Reference
+
+### `generateTailwindCSS(options)`
+
+Generates Tailwind CSS from content string.
+
+#### Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `content` | `string` | `''` | HTML/JS content to scan for Tailwind classes |
+| `css` | `string` | `''` | Additional CSS to include in output (e.g., `@theme` directives) |
+| `importCSS` | `string` | `'@import "tailwindcss";'` | Tailwind import statement, can include modifiers like `important(#app)` |
+| `candidates` | `string[]` | `[]` | Pre-extracted candidate classes. If provided, skips content scanning |
+
+#### Returns
+`Promise<string>` - The generated Tailwind CSS
+
+#### Example
+```javascript
+const css = await generateTailwindCSS({
+  content: '<div class="p-4 bg-blue-500">Hello</div>',
+  css: '@theme { --color-primary: #3b82f6; }',
+  importCSS: '@import "tailwindcss" important(#app);'
+});
+```
+
+---
+
+### `getTailwindClasses(options)`
+
+Extracts Tailwind candidate classes from content.
+
+#### Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `content` | `string` | `''` | HTML/JS content to scan |
+| `returnPositions` | `boolean` | `false` | Return objects with position data instead of strings |
+| `extension` | `string` | `'html'` | File type hint for parser (`'html'`, `'js'`, `'jsx'`, `'tsx'`, `'vue'`, etc.) |
+
+#### Returns
+`Promise<string[] | Array<{candidate: string, position: number}>>` - Array of class names or objects with positions
+
+#### Example
+```javascript
+// Simple array of classes
+const classes = await getTailwindClasses({
+  content: '<div class="p-4 bg-blue-500">Hello</div>'
+});
+// Returns: ['p-4', 'bg-blue-500']
+
+// With position information
+const classesWithPos = await getTailwindClasses({
+  content: '<div class="p-4">Hello</div>',
+  returnPositions: true
+});
+// Returns: [{ candidate: 'p-4', position: 13 }]
+```
+
+---
+
+### `loadTailwindCSS(id, base)` 
+
+> **⚠️ Browser only** - Internal function used by `generateTailwindCSS`
+
+Loads Tailwind CSS virtual stylesheets. This is primarily for internal use but exposed for advanced use cases.
+
+#### Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `id` | `string` | Stylesheet identifier (`'tailwindcss'`, `'tailwindcss/preflight'`, etc.) |
+| `base` | `string` | Base path for resolving stylesheets |
+
+#### Returns
+`Object` - Virtual stylesheet object with `path`, `base`, and `content` properties
+
+---
+
+## 💡 Examples
 
 ### Generating CSS
 
@@ -185,7 +265,44 @@ The `/cdn` and `/importmap` export condition can be used to get a version with d
 </script>
 ```
 
-## Common Issues
+## 🎨 Tailwind v4 Configuration
+
+Since this package uses Tailwind v4 (Oxide engine), configuration is done through CSS instead of JavaScript config files. 
+
+### Using Important Selector
+```javascript
+const css = await generateTailwindCSS({
+  content: '<div class="p-4">Hello</div>',
+  importCSS: '@import "tailwindcss" important(#app);'
+});
+// Generates: #app .p-4 { padding: 1rem; }
+```
+
+### Custom Theme Values
+```javascript
+const css = await generateTailwindCSS({
+  content: '<div class="bg-primary">Hello</div>',
+  css: `
+    @theme {
+      --color-primary: #3b82f6;
+      --font-sans: "Inter", sans-serif;
+    }
+  `
+});
+```
+
+### Multiple Layers
+```javascript
+const css = await generateTailwindCSS({
+  content: '<div class="container">Hello</div>',
+  importCSS: `
+    @import "tailwindcss/preflight" layer(base);
+    @import "tailwindcss/utilities" layer(utilities);
+  `
+});
+```
+
+## ⚠️ Common Issues
 
 If you are using Vite or a Vite based tool like Astro you will need to add this package to the exclude list for `optimizeDeps` for the wasm file to be accessed properly
 
