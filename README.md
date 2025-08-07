@@ -38,7 +38,7 @@ const tailwindCSS = await generateTailwindCSS({ content, css });
 
 This is useful for testing, benchmarking, or when bundler environment detection isn't working as expected.
 
-## 📚 API Reference
+## API Reference
 
 ### `generateTailwindCSS(options)`
 
@@ -98,27 +98,7 @@ const classesWithPos = await getTailwindClasses({
 // Returns: [{ candidate: 'p-4', position: 13 }]
 ```
 
----
-
-### `loadTailwindCSS(id, base)` 
-
-> **⚠️ Browser only** - Internal function used by `generateTailwindCSS`
-
-Loads Tailwind CSS virtual stylesheets. This is primarily for internal use but exposed for advanced use cases.
-
-#### Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `id` | `string` | Stylesheet identifier (`'tailwindcss'`, `'tailwindcss/preflight'`, etc.) |
-| `base` | `string` | Base path for resolving stylesheets |
-
-#### Returns
-`Object` - Virtual stylesheet object with `path`, `base`, and `content` properties
-
----
-
-## 💡 Examples
+## Examples
 
 ### Generating CSS
 
@@ -265,7 +245,7 @@ The `/cdn` and `/importmap` export condition can be used to get a version with d
 </script>
 ```
 
-## 🎨 Tailwind v4 Configuration
+## Tailwind v4 Configuration
 
 Since this package uses Tailwind v4 (Oxide engine), configuration is done through CSS instead of JavaScript config files. 
 
@@ -302,7 +282,7 @@ const css = await generateTailwindCSS({
 });
 ```
 
-## ⚠️ Common Issues
+## Common Issues
 
 If you are using Vite or a Vite based tool like Astro you will need to add this package to the exclude list for `optimizeDeps` for the wasm file to be accessed properly
 
