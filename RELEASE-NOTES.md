@@ -1,3 +1,6 @@
+# Version 1.0.6
+- Update npm dependencies
+
 # Version 1.0.5-3
 - Iterated on tweaks to fix wasm import in browser so that it can be detectable by esbuild as an asset and used on a cdn
 
