@@ -1,3 +1,6 @@
+# Version 1.0.7
+- Align server ordering with browser (`@import "tailwindcss"` first, then user css) so both compilers produce matching `@layer` cascade structure
+
 # Version 1.0.6
 - Update npm dependencies
 

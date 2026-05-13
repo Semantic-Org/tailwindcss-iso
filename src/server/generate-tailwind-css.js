@@ -13,10 +13,12 @@ export async function generateTailwindCSS({
     candidates = await getTailwindClasses({ content });
   }
 
-  // Build source CSS - put existing CSS first, then Tailwind directives
+  // Build source CSS — import Tailwind first so user @theme / @utility /
+  // @custom-variant blocks land after the defaults and can override them.
+  // Mirrors the browser build's ordering.
   const sourceCSS = css
-    ? `${css}\n${importCSS}` // Add utilities to existing CSS
-    : importCSS; // Just utilities if no existing CSS
+    ? `${importCSS}\n${css}`
+    : importCSS;
 
   // Compile CSS using @tailwindcss/node with file system support
   const compiler = await compile(sourceCSS, {
